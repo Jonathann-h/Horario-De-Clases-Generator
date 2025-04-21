@@ -190,3 +190,29 @@
     cursor: pointer;
     font-size: 1em;
   }
+
+  /*Estilos para  Drag and Drop */
+.day-column--hover {
+    background-color: #e6f7ff;
+    transition: background-color 0.3s;
+  }
+  
+  .class-item {
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  
+  .class-item--dragging {
+    cursor: grabbing;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .class-item:active {
+    cursor: grabbing;
+  }
+  
+  /* Feedback visual al arrastrar */
+  .class-item.dragging-over {
+    border: 2px dashed #1890ff;
+  }

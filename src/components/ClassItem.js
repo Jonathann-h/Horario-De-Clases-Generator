@@ -1,8 +1,21 @@
 import React from 'react';
+import { useDrag } from 'react-dnd';
 
-const ClassItem = ({ classData, onRemove }) => {
+const ClassItem = ({ classData, day, onRemove }) => {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'CLASS',
+    item: { classId: classData.id, day },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
   return (
-    <div className="class-item">
+    <div 
+      ref={drag}
+      className={`class-item ${isDragging ? 'class-item--dragging' : ''}`}
+      style={{ opacity: isDragging ? 0.5 : 1 }}
+    >
       <div className="class-header">
         <span className="class-time">{classData.startTime} - {classData.endTime}</span>
         <button onClick={onRemove} className="remove-btn">×</button>
