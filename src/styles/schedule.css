@@ -12,6 +12,26 @@
     gap: 20px;
   }
   
+  .header-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .clear-btn {
+    background: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .clear-btn:hover {
+    background: #ff7875;
+  }
+  
   /* Grid de horario */
   .schedule-grid {
     display: grid;
