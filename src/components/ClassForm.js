@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { ChromePicker } from 'react-color';
+import '../styles/schedule.css'; 
 
 const ClassForm = ({ onSave, onCancel }) => {
   const [formData, setFormData] = useState({
@@ -8,9 +10,11 @@ const ClassForm = ({ onSave, onCancel }) => {
     endTime: '09:00',
     classroom: '',
     section: '',
-    professor: ''
+    professor: '',
+    color: '#ffffff' // Color blanco por defecto
   });
 
+  const [showColorPicker, setShowColorPicker] = useState(false);
   const [errors, setErrors] = useState({
     time: '',
     name: ''
@@ -26,6 +30,10 @@ const ClassForm = ({ onSave, onCancel }) => {
     if (name === 'name') {
       setErrors(prev => ({ ...prev, name: '' }));
     }
+  };
+
+  const handleColorChange = (color) => {
+    setFormData(prev => ({ ...prev, color: color.hex }));
   };
 
   const validateTime = (start, end) => {
@@ -61,7 +69,7 @@ const ClassForm = ({ onSave, onCancel }) => {
         <h3>Agregar Nueva Clase</h3>
         
         <label>
-          Nombre de la clase:
+          Nombre de la clase: *
           <input 
             type="text" 
             name="name" 
@@ -74,7 +82,7 @@ const ClassForm = ({ onSave, onCancel }) => {
         
         <div className="time-inputs">
           <label>
-            Hora de inicio:
+            Hora de inicio: *
             <input 
               type="time" 
               name="startTime" 
@@ -86,7 +94,7 @@ const ClassForm = ({ onSave, onCancel }) => {
           </label>
           
           <label>
-            Hora de fin:
+            Hora de fin: *
             <input 
               type="time" 
               name="endTime" 
@@ -127,6 +135,45 @@ const ClassForm = ({ onSave, onCancel }) => {
             value={formData.professor} 
             onChange={handleChange} 
           />
+        </label>
+
+        <label>
+          Color de la materia:
+          <div className="color-selector">
+            <div 
+              className="color-preview"
+              style={{ backgroundColor: formData.color }}
+              onClick={() => setShowColorPicker(!showColorPicker)}
+            />
+            <span>{formData.color}</span>
+            {showColorPicker && (
+              <div className="color-picker-popup">
+                <ChromePicker 
+                  color={formData.color}
+                  onChange={handleColorChange}
+                />
+                <div className="color-picker-actions">
+                  <button 
+                    type="button"
+                    className="color-picker-btn"
+                    onClick={() => setShowColorPicker(false)}
+                  >
+                    Aceptar
+                  </button>
+                  <button 
+                    type="button"
+                    className="color-picker-btn reset"
+                    onClick={() => {
+                      setFormData(prev => ({ ...prev, color: '#ffffff' }));
+                      setShowColorPicker(false);
+                    }}
+                  >
+                    Restablecer
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </label>
         
         <div className="form-actions">
