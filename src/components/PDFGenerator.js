@@ -1,67 +1,75 @@
 import React from 'react';
-import { useReactToPrint } from 'react-to-print';
-import { useRef } from 'react';
+import { jsPDF } from 'jspdf';
+//import './schedule.css';
 
 const PDFGenerator = ({ schedule }) => {
-  const scheduleRef = useRef();
+  const generatePDF = () => {
+    const doc = new jsPDF({
+      orientation: 'landscape',
+      unit: 'mm',
+      format: 'a4'
+    });
 
-  const handlePrint = useReactToPrint({
-    content: () => scheduleRef.current,
-    pageStyle: `
-      @page {
-        size: A4 landscape;
-        margin: 10mm;
+    // Título
+    doc.setFontSize(20);
+    doc.text('Horario Académico', 105, 20, { align: 'center' });
+    
+    // Fecha de generación
+    doc.setFontSize(12);
+    doc.text(`Generado el: ${new Date().toLocaleDateString()}`, 105, 30, { align: 'center' });
+    
+    // Configuración de columnas
+    const columnWidth = 25;
+    const startX = 15;
+    const startY = 40;
+    let y = startY;
+    
+    // Encabezados de días
+    const days = Object.keys(schedule);
+    days.forEach((day, index) => {
+      doc.setFillColor(64, 169, 255);
+      doc.rect(startX + (index * columnWidth), y, columnWidth, 10, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.text(day, startX + (index * columnWidth) + columnWidth/2, y + 7, { align: 'center' });
+    });
+    
+    y += 10;
+    doc.setTextColor(0, 0, 0);
+    
+    // Contenido de las clases
+    let maxClasses = 0;
+    days.forEach(day => {
+      if (schedule[day].length > maxClasses) maxClasses = schedule[day].length;
+    });
+    
+    for (let i = 0; i < maxClasses; i++) {
+      days.forEach((day, col) => {
+        const classItem = schedule[day][i];
+        if (classItem) {
+          doc.setFontSize(10);
+          doc.text(`${classItem.startTime}-${classItem.endTime}`, startX + (col * columnWidth) + 2, y + 5);
+          doc.text(classItem.name, startX + (col * columnWidth) + 2, y + 10, { maxWidth: columnWidth - 4 });
+          
+          if (classItem.classroom) {
+            doc.setFontSize(8);
+            doc.text(`Aula: ${classItem.classroom}`, startX + (col * columnWidth) + 2, y + 15);
+          }
+        }
+      });
+      y += 20;
+      if (y > 180) { // Nueva página si se acaba el espacio
+        doc.addPage('a4', 'landscape');
+        y = startY;
       }
-      @media print {
-        body {
-          -webkit-print-color-adjust: exact;
-        }
-        .schedule-print {
-          width: 100%;
-          display: grid;
-          grid-template-columns: repeat(7, 1fr);
-          gap: 10px;
-        }
-        .day-column-print {
-          border: 1px solid #000;
-          padding: 5px;
-        }
-        .class-item-print {
-          margin-bottom: 10px;
-          padding: 5px;
-          background: #f0f0f0;
-          break-inside: avoid;
-        }
-      }
-    `,
-    documentTitle: 'Horario de Clases'
-  });
+    }
+    
+    doc.save('mi_horario.pdf');
+  };
 
   return (
-    <div className="pdf-generator">
-      <button onClick={handlePrint}>Generar PDF</button>
-      
-      {/* Contenido oculto para impresión */}
-      <div style={{ display: 'none' }}>
-        <div ref={scheduleRef} className="schedule-print">
-          <h1 style={{ gridColumn: '1 / -1', textAlign: 'center' }}>Horario de Clases</h1>
-          {Object.entries(schedule).map(([day, classes]) => (
-            <div key={day} className="day-column-print">
-              <h3>{day}</h3>
-              {classes.map(cls => (
-                <div key={cls.id} className="class-item-print">
-                  <p><strong>{cls.startTime} - {cls.endTime}</strong></p>
-                  <p><strong>{cls.name}</strong></p>
-                  <p>Aula: {cls.classroom}</p>
-                  <p>Sección: {cls.section}</p>
-                  <p>Profesor: {cls.professor}</p>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    <button onClick={generatePDF} className="pdf-button">
+      Descargar PDF con jsPDF
+    </button>
   );
 };
 

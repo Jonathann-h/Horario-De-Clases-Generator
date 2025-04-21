@@ -11,14 +11,48 @@ const ClassForm = ({ onSave, onCancel }) => {
     professor: ''
   });
 
+  const [errors, setErrors] = useState({
+    time: '',
+    name: ''
+  });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    // Limpiar errores al cambiar
+    if (name === 'startTime' || name === 'endTime') {
+      setErrors(prev => ({ ...prev, time: '' }));
+    }
+    if (name === 'name') {
+      setErrors(prev => ({ ...prev, name: '' }));
+    }
+  };
+
+  const validateTime = (start, end) => {
+    const [startHours, startMinutes] = start.split(':').map(Number);
+    const [endHours, endMinutes] = end.split(':').map(Number);
+    
+    if (startHours > endHours || (startHours === endHours && startMinutes >= endMinutes)) {
+      return 'La hora de fin debe ser posterior a la hora de inicio';
+    }
+    return '';
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(formData);
+    
+    // Validaciones
+    const timeError = validateTime(formData.startTime, formData.endTime);
+    const nameError = formData.name.trim() === '' ? 'El nombre de la clase es requerido' : '';
+    
+    setErrors({
+      time: timeError,
+      name: nameError
+    });
+
+    if (!timeError && !nameError) {
+      onSave(formData);
+    }
   };
 
   return (
@@ -32,9 +66,10 @@ const ClassForm = ({ onSave, onCancel }) => {
             type="text" 
             name="name" 
             value={formData.name} 
-            onChange={handleChange} 
-            required 
+            onChange={handleChange}
+            className={errors.name ? 'input-error' : ''}
           />
+          {errors.name && <span className="error-message">{errors.name}</span>}
         </label>
         
         <div className="time-inputs">
@@ -44,7 +79,8 @@ const ClassForm = ({ onSave, onCancel }) => {
               type="time" 
               name="startTime" 
               value={formData.startTime} 
-              onChange={handleChange} 
+              onChange={handleChange}
+              className={errors.time ? 'input-error' : ''}
               required 
             />
           </label>
@@ -55,10 +91,12 @@ const ClassForm = ({ onSave, onCancel }) => {
               type="time" 
               name="endTime" 
               value={formData.endTime} 
-              onChange={handleChange} 
+              onChange={handleChange}
+              className={errors.time ? 'input-error' : ''}
               required 
             />
           </label>
+          {errors.time && <span className="error-message time-error">{errors.time}</span>}
         </div>
         
         <label>
