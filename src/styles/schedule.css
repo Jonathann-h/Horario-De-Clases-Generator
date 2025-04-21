@@ -216,3 +216,12 @@
   .class-item.dragging-over {
     border: 2px dashed #1890ff;
   }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .class-item {
+    animation: fadeIn 0.3s ease-out;
+  }
