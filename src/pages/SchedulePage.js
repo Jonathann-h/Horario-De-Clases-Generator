@@ -112,9 +112,12 @@ const SchedulePage = () => {
       <div className="schedule-page">
         <div className="header-controls">
           <h1>Generador de Horarios</h1>
-          <button onClick={clearSchedule} className="clear-btn">
-            Borrar Todo
-          </button>
+          <div className="header-actions">
+            <PDFGenerator schedule={schedule} />
+            <button onClick={clearSchedule} className="clear-btn">
+              Borrar Todo
+            </button>
+          </div>
         </div>
         
         <ScheduleControls 
@@ -134,8 +137,6 @@ const SchedulePage = () => {
             />
           ))}
         </div>
-        
-        <PDFGenerator schedule={schedule} />
       </div>
     </DndProvider>
   );

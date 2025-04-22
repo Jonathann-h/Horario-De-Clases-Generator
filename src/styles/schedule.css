@@ -28,7 +28,14 @@
   transition: all 0.3s;
 }
 
+.header-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 .clear-btn {
+  order: 2;
   background: #ff4d4f;
 }
 
@@ -37,6 +44,7 @@
 }
 
 .pdf-button {
+  order: 1;
   background: #1890ff;
 }
 

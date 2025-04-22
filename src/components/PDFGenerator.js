@@ -1,6 +1,6 @@
 import React from 'react';
 import { jsPDF } from 'jspdf';
-//import './schedule.css';
+//import '../styles/schedule.css'; 
 
 const PDFGenerator = ({ schedule }) => {
   const generatePDF = () => {
@@ -68,7 +68,7 @@ const PDFGenerator = ({ schedule }) => {
 
   return (
     <button onClick={generatePDF} className="pdf-button">
-      Descargar PDF con jsPDF
+      Descargar Horario en PDF
     </button>
   );
 };
