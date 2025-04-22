@@ -382,6 +382,26 @@
   background: #218838;
 }
 
+/* Botón de modo edición */
+.edit-mode-btn {
+  background: #faad14 !important; /* Amarillo/naranja */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  order: 2; /* Posición entre PDF y Borrar Todo */
+}
+
+.edit-mode-btn:hover {
+  background: #ffc53d !important;
+}
+
+.edit-mode-btn.active {
+  background: #52c41a !important; /* Verde cuando está activo */
+}
+
 /*Diseño responsivo*/
 @media (max-width: 768px) {
   .schedule-grid {
@@ -398,4 +418,41 @@
     width: 100%;
     justify-content: space-between;
   }
+}
+
+body.light-mode {
+  background-color: #f5f5f5;
+  color: #111;
+}
+
+body.dark-mode {
+  background-color: #101f21;
+  color: #f5f5f5;
+}
+
+.schedule-page,
+.class-form-modal {
+  transition: background-color 0.3s, color 0.3s;
+}
+
+input, button, select, textarea {
+  background-color: inherit;
+  color: inherit;
+  border: 1px solid #ccc;
+}
+
+.dark-mode input,
+.dark-mode button,
+.dark-mode select,
+.dark-mode textarea {
+  background-color: #1a1a1a;
+  color: #f5f5f5;
+  border: 1px solid #444;
+}
+
+.theme-toggle-btn {
+  margin-right: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
 }

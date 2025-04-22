@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import DayColumn from '../components/DayColumn';
 import ScheduleControls from '../components/ScheduleControls';
 import PDFGenerator from '../components/PDFGenerator';
 import '../styles/schedule.css';
+import { ThemeContext } from '../context/ThemeContext';
 
 // Clave para el localStorage con versión
 const STORAGE_KEY = 'classScheduleData_v1';
 
 const SchedulePage = () => {
+  const { darkMode, toggleTheme } = useContext(ThemeContext); 
   const [schedule, setSchedule] = useState({
     Lunes: [],
     Martes: [],
@@ -111,6 +113,9 @@ const SchedulePage = () => {
     <DndProvider backend={HTML5Backend}>
       <div className="schedule-page">
         <div className="header-controls">
+        <button onClick={toggleTheme} className="theme-toggle-btn">
+          {darkMode ? 'Modo Claro' : 'Modo Oscuro'}
+        </button>
           <h1>Generador de Horarios</h1>
           <div className="header-actions">
             <PDFGenerator schedule={schedule} />

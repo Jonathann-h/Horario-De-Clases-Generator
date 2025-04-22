@@ -1,11 +1,14 @@
 import React from 'react';
+import { ThemeProvider } from './context/ThemeContext';
 import SchedulePage from './pages/SchedulePage';
 
 function App() {
   return (
-    <div className="app">
-      <SchedulePage />
-    </div>
+    <ThemeProvider>
+      <div className="app">
+        <SchedulePage />
+      </div>
+    </ThemeProvider>
   );
 }
 
