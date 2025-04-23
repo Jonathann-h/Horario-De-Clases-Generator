@@ -116,7 +116,7 @@ const SchedulePage = () => {
         <button onClick={toggleTheme} className="theme-toggle-btn">
           {darkMode ? 'Modo Claro' : 'Modo Oscuro'}
         </button>
-          <h1>Generador de Horarios</h1>
+          <h1>MiHorario - Planificador Académico</h1>
           <div className="header-actions">
             <PDFGenerator schedule={schedule} />
             <button onClick={clearSchedule} className="clear-btn">

@@ -5,7 +5,10 @@ export const ThemeContext = createContext();
 const THEME_KEY = 'appTheme';
 
 export const ThemeProvider = ({ children }) => {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    return savedTheme === 'dark';
+  });
 
   useEffect(() => {
     const savedTheme = localStorage.getItem(THEME_KEY);
@@ -13,8 +16,8 @@ export const ThemeProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(THEME_KEY, darkMode ? 'dark' : 'light');
-    document.body.className = darkMode ? 'dark-mode' : 'light-mode';
+    document.body.classList.remove('dark-mode', 'light-mode');
+    document.body.classList.add(darkMode ? 'dark-mode' : 'light-mode');
   }, [darkMode]);
 
   const toggleTheme = () => setDarkMode(prev => !prev);
