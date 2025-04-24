@@ -1,6 +1,15 @@
 import React from 'react';
 import { useDrop } from 'react-dnd';
 import ClassItem from './ClassItem';
+import { motion } from 'framer-motion';
+
+<motion.div
+  className="class-item"
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  exit={{ opacity: 0, y: -10 }}
+  layout
+></motion.div>
 
 const DayColumn = ({ day, classes, onRemoveClass, onMoveClass }) => {
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
