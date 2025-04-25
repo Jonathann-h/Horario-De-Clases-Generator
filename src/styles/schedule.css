@@ -539,26 +539,47 @@
 .day-selector button:hover {
   background: #56cfe1;
 }
-
 /* Botón de modo edición */
 .edit-mode-btn {
-  background: var(--warning) !important;
+  background: var(--warning);
   color: #212529;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 0.5rem 1rem;
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: var(--transition-normal);
-  order: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
 .edit-mode-btn:hover {
-  background: #f9a03f !important;
+  background: #f9a03f;
 }
 
 .edit-mode-btn.active {
-  background: var(--success) !important;
+  background: var(--success);
   color: white;
+}
+
+/* Botón de eliminar */
+.remove-btn {
+  background: rgba(247, 37, 133, 0.1);
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: auto;
+}
+
+.remove-btn:hover {
+  background: rgba(247, 37, 133, 0.3);
+  transform: scale(1.1);
 }
 
 /* ===== TEMA OSCURO ===== */

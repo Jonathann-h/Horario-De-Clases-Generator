@@ -35,6 +35,7 @@ const SchedulePage = () => {
   const { darkMode, toggleTheme } = useContext(ThemeContext); 
   const [schedule, setSchedule] = useState(getInitialSchedule());
   const [isLoaded, setIsLoaded] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   // Cargar datos al iniciar (solo una vez)
   useEffect(() => {
@@ -143,18 +144,24 @@ const SchedulePage = () => {
   return (
     <DndProvider backend={HTML5Backend}>
       <div className={`schedule-page ${darkMode ? 'dark-mode' : 'light-mode'}`}>
-        <div className="header-controls">
-          <button onClick={toggleTheme} className="theme-toggle-btn">
-            {darkMode ? 'Modo Claro' : 'Modo Oscuro'}
+      <div className="header-controls">
+        <button onClick={toggleTheme} className="theme-toggle-btn">
+          {darkMode ? 'Modo Claro' : 'Modo Oscuro'}
+        </button>
+        <h1>MiHorario - Planificador Académico</h1>
+        <div className="header-actions">
+          <button 
+            onClick={() => setEditMode(!editMode)} 
+            className={`edit-mode-btn ${editMode ? 'active' : ''}`}
+          >
+            {editMode ? '✅ Guardar' : '✏️ Eliminar Clase'}
           </button>
-          <h1>MiHorario - Planificador Académico</h1>
-          <div className="header-actions">
-            <PDFGenerator schedule={schedule} />
-            <button onClick={clearSchedule} className="clear-btn">
-              Borrar Todo
-            </button>
-          </div>
+          <PDFGenerator schedule={schedule} />
+          <button onClick={clearSchedule} className="clear-btn">
+            Borrar Todo
+          </button>
         </div>
+      </div>
         
         <ScheduleControls 
           schedule={schedule} 
@@ -170,6 +177,7 @@ const SchedulePage = () => {
               classes={schedule[day]}
               onRemoveClass={removeClass}
               onMoveClass={moveClass}
+              editMode={editMode}
             />
           ))}
         </div>

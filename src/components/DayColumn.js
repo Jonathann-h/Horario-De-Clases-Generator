@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
   layout
 ></motion.div>
 
-const DayColumn = ({ day, classes, onRemoveClass, onMoveClass }) => {
+const DayColumn = ({ day, classes, onRemoveClass, onMoveClass, editMode }) => {
   const [{ isOver, canDrop }, drop] = useDrop(() => ({
     accept: 'CLASS',
     drop: (item) => {
@@ -39,6 +39,7 @@ const DayColumn = ({ day, classes, onRemoveClass, onMoveClass }) => {
             classData={cls}
             day={day}
             onRemove={() => onRemoveClass(day, cls.id)}
+            editMode={editMode}
           />
         ))}
       </div>

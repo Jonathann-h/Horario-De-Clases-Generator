@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDrag } from 'react-dnd';
 
-const ClassItem = ({ classData, day, onRemove, overlapping }) => {
+const ClassItem = ({ classData, day, onRemove, overlapping, editMode }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'CLASS',
     item: { classId: classData.id, day },
@@ -23,7 +23,15 @@ const ClassItem = ({ classData, day, onRemove, overlapping }) => {
       <div className="class-header">
         <span className="class-time">{classData.startTime} - {classData.endTime}</span>
         {overlapping && <span className="overlap-warning">⚠️ Solapado</span>}
-        <button onClick={onRemove} className="remove-btn">×</button>
+        {editMode && (
+          <button 
+            onClick={(e) => {
+              e.stopPropagation();
+              onRemove();
+            }} 
+            className="remove-btn"
+          >×</button>
+        )}
       </div>
       <div className="class-details">
         <h4>{classData.name}</h4>
@@ -34,7 +42,6 @@ const ClassItem = ({ classData, day, onRemove, overlapping }) => {
     </div>
   );
 };
-
 // Función para determinar si usar texto claro u oscuro según el fondo
 function getContrastColor(hexColor) {
   // Si el color es blanco o muy claro, usa texto oscuro
