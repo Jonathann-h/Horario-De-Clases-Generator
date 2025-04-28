@@ -1,11 +1,13 @@
-import React, { useState, useContext } from 'react'; // Añadido useContext
+import React, { useState, useContext, useEffect, useRef } from 'react';
 import { useDrag } from 'react-dnd';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeContext } from '../context/ThemeContext';
 
-const ClassItem = ({ classData, day, onRemove, overlapping, editMode }) => {
-  const { darkMode } = useContext(ThemeContext); // Usando useContext
+const ClassItem = ({ classData, day, onRemove, overlapping }) => {
+  const { darkMode } = useContext(ThemeContext);
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+  
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'CLASS',
     item: { classId: classData.id, day },
@@ -13,6 +15,18 @@ const ClassItem = ({ classData, day, onRemove, overlapping, editMode }) => {
       isDragging: !!monitor.isDragging(),
     }),
   }));
+
+  // Cierra el menú al hacer clic fuera
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const toggleMenu = (e) => {
     e.stopPropagation();
@@ -46,7 +60,8 @@ const ClassItem = ({ classData, day, onRemove, overlapping, editMode }) => {
         <div className="class-header">
           <span className="class-time">{classData.startTime} - {classData.endTime}</span>
           
-          <div className="menu-container" style={{ display: 'inline-block' }}>
+          {/* Contenedor del menú (aquí aplicamos la ref) */}
+          <div ref={menuRef} style={{ display: 'inline-block', position: 'relative' }}>
             <button 
               className="menu-btn" 
               onClick={toggleMenu}
@@ -62,44 +77,44 @@ const ClassItem = ({ classData, day, onRemove, overlapping, editMode }) => {
               ⋮
             </button>
 
+            {/* Menú desplegable */}
             <AnimatePresence>
               {menuOpen && (
-                <motion.div 
-                  className="menu-dropdown"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                   style={{
                     position: 'absolute',
                     right: 0,
                     top: '100%',
-                    backgroundColor: darkMode ? '#2d3748' : 'white', // Fondo oscuro/light
-                    color: darkMode ? 'white' : '#333333', // Texto claro/oscuro
-                    borderRadius: '4px',
+                    backgroundColor: darkMode ? '#2d3748' : 'white',
+                    color: darkMode ? 'white' : '#333333',
+                    borderRadius: '6px',
                     boxShadow: darkMode 
-                      ? '0 2px 5px rgba(255,255,255,0.1)' 
-                      : '0 2px 5px rgba(0,0,0,0.2)',
-                    zIndex: 100,
-                    minWidth: '120px',
-                    overflow: 'hidden' // Para bordes redondeados
+                      ? '0 2px 10px rgba(0,0,0,0.3)' 
+                      : '0 2px 10px rgba(0,0,0,0.1)',
+                    zIndex: 1000,
+                    minWidth: '150px',
+                    overflow: 'hidden'
                   }}
                 >
                   <button 
-                    className="menu-item" 
                     onClick={handleDelete}
                     style={{
                       width: '100%',
-                      padding: '8px 12px',
+                      padding: '10px 15px',
                       textAlign: 'left',
                       background: 'none',
                       border: 'none',
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '8px',
+                      gap: '10px',
                       color: darkMode ? 'white' : '#333333',
                       ':hover': {
-                        backgroundColor: darkMode ? '#4a5568' : '#f5f5f5'
+                        backgroundColor: darkMode ? '#4a5568' : '#f7fafc'
                       }
                     }}
                   >
@@ -122,7 +137,7 @@ const ClassItem = ({ classData, day, onRemove, overlapping, editMode }) => {
   );
 };
 
-// Función para contraste de color
+// Función para calcular color de texto contrastante
 function getContrastColor(hexColor) {
   if (!hexColor || hexColor.toLowerCase() === '#ffffff' || hexColor.toLowerCase() === '#fff') {
     return '#333333';
