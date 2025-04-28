@@ -35,7 +35,6 @@ const SchedulePage = () => {
   const { darkMode, toggleTheme } = useContext(ThemeContext); 
   const [schedule, setSchedule] = useState(getInitialSchedule());
   const [isLoaded, setIsLoaded] = useState(false);
-  const [editMode, setEditMode] = useState(false);
 
   // Cargar datos al iniciar (solo una vez)
   useEffect(() => {
@@ -120,12 +119,11 @@ const SchedulePage = () => {
       const classToMove = prev[fromDay].find(cls => cls.id === classId);
       if (!classToMove) return prev;
       
-      const newSchedule = {
+      return {
         ...prev,
         [fromDay]: prev[fromDay].filter(cls => cls.id !== classId),
-        [toDay]: [...prev[toDay], classToMove]
+        [toDay]: [...prev[toDay], { ...classToMove }] 
       };
-      return newSchedule;
     });
   }, []);
 
@@ -138,7 +136,7 @@ const SchedulePage = () => {
   }, []);
 
   if (!isLoaded) {
-    return <div>Cargando...</div>; // O un spinner de carga
+    return <div>Cargando...</div>; 
   }
 
   return (
@@ -150,12 +148,6 @@ const SchedulePage = () => {
         </button>
         <h1>MiHorario - Planificador Académico</h1>
         <div className="header-actions">
-          <button 
-            onClick={() => setEditMode(!editMode)} 
-            className={`edit-mode-btn ${editMode ? 'active' : ''}`}
-          >
-            {editMode ? '✅ Guardar' : '✏️ Eliminar Clase'}
-          </button>
           <PDFGenerator schedule={schedule} />
           <button onClick={clearSchedule} className="clear-btn">
             Borrar Todo
@@ -177,7 +169,6 @@ const SchedulePage = () => {
               classes={schedule[day]}
               onRemoveClass={removeClass}
               onMoveClass={moveClass}
-              editMode={editMode}
             />
           ))}
         </div>
