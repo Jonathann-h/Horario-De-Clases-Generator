@@ -1,8 +1,19 @@
 import React, { useState } from 'react';
-import { ChromePicker } from 'react-color';
-import '../styles/schedule.css'; 
+import '../styles/schedule.css';
+import '../styles/ClassForm.css'
 
 const ClassForm = ({ onSave, onCancel }) => {
+  // Colores predeterminados
+  const DEFAULT_COLORS = [
+    'white',
+    '#4361ee', // Azul primario
+    '#4cc9f0', // Celeste
+    '#7209b7', // Morado
+    '#f72585', // Rosado
+    '#f8961e', // Naranja
+    '#4caf50'  // Verde
+  ];
+
   const [formData, setFormData] = useState({
     id: Date.now(),
     name: '',
@@ -11,10 +22,9 @@ const ClassForm = ({ onSave, onCancel }) => {
     classroom: '',
     section: '',
     professor: '',
-    color: '#ffffff' // Color blanco por defecto
+    color: DEFAULT_COLORS[0] // Primer color como predeterminado
   });
 
-  const [showColorPicker, setShowColorPicker] = useState(false);
   const [errors, setErrors] = useState({
     time: '',
     name: ''
@@ -23,6 +33,7 @@ const ClassForm = ({ onSave, onCancel }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    
     // Limpiar errores al cambiar
     if (name === 'startTime' || name === 'endTime') {
       setErrors(prev => ({ ...prev, time: '' }));
@@ -32,8 +43,8 @@ const ClassForm = ({ onSave, onCancel }) => {
     }
   };
 
-  const handleColorChange = (color) => {
-    setFormData(prev => ({ ...prev, color: color.hex }));
+  const handleColorSelect = (color) => {
+    setFormData(prev => ({ ...prev, color }));
   };
 
   const validateTime = (start, end) => {
@@ -139,40 +150,16 @@ const ClassForm = ({ onSave, onCancel }) => {
 
         <label>
           Color de la materia:
-          <div className="color-selector">
-            <div 
-              className="color-preview"
-              style={{ backgroundColor: formData.color }}
-              onClick={() => setShowColorPicker(!showColorPicker)}
-            />
-            <span>{formData.color}</span>
-            {showColorPicker && (
-              <div className="color-picker-popup">
-                <ChromePicker 
-                  color={formData.color}
-                  onChange={handleColorChange}
-                />
-                <div className="color-picker-actions">
-                  <button 
-                    type="button"
-                    className="color-picker-btn"
-                    onClick={() => setShowColorPicker(false)}
-                  >
-                    Aceptar
-                  </button>
-                  <button 
-                    type="button"
-                    className="color-picker-btn reset"
-                    onClick={() => {
-                      setFormData(prev => ({ ...prev, color: '#ffffff' }));
-                      setShowColorPicker(false);
-                    }}
-                  >
-                    Restablecer
-                  </button>
-                </div>
-              </div>
-            )}
+          <div className="default-colors-container">
+            {DEFAULT_COLORS.map((color) => (
+              <div
+                key={color}
+                className={`default-color-option ${formData.color === color ? 'selected' : ''}`}
+                style={{ backgroundColor: color }}
+                onClick={() => handleColorSelect(color)}
+                title={color}
+              />
+            ))}
           </div>
         </label>
         

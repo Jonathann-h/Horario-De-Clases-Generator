@@ -1,0 +1,43 @@
+/* Selector de colores predeterminados */
+.default-colors-container {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+    flex-wrap: wrap;
+  }
+  
+  .default-color-option {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+  }
+  
+  .default-color-option:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  
+  .default-color-option.selected {
+    border-color: #333;
+    transform: scale(1.1);
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #333;
+  }
+  
+  .selected-color-preview {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .color-badge {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+  }
