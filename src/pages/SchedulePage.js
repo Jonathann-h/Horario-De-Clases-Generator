@@ -4,7 +4,8 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import DayColumn from '../components/DayColumn';
 import ScheduleControls from '../components/ScheduleControls';
 import PDFGenerator from '../components/PDFGenerator';
-import '../styles/schedule.css';
+//import '../styles/schedule.css';
+import '../styles/SchedulePage.css';
 import { ThemeContext } from '../context/ThemeContext';
 
 // Clave para el localStorage con versión

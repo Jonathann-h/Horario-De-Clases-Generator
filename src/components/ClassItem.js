@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import { useDrag } from 'react-dnd';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeContext } from '../context/ThemeContext';
+import '../styles/ClassItem.css'
 
 const ClassItem = ({ classData, day, onRemove, overlapping }) => {
   const { darkMode } = useContext(ThemeContext);
@@ -139,9 +140,12 @@ const ClassItem = ({ classData, day, onRemove, overlapping }) => {
 
 // Función para calcular color de texto contrastante
 function getContrastColor(hexColor) {
-  if (!hexColor || hexColor.toLowerCase() === '#ffffff' || hexColor.toLowerCase() === '#fff') {
+  const color = hexColor.toLowerCase();
+  /*if (!hexColor || hexColor.toLowerCase() === '#ffffff' || hexColor.toLowerCase() === '#fff') {
     return '#333333';
-  }
+  }*/
+  if (color === 'white') { return '#333333';}
+  if (color === '#ffffff' || color === '#fff') { return '#333333'; }
   
   const r = parseInt(hexColor.substr(1, 2), 16);
   const g = parseInt(hexColor.substr(3, 2), 16);

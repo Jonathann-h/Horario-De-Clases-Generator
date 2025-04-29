@@ -1,5 +1,6 @@
 import React from 'react';
 import { jsPDF } from 'jspdf';
+import '../styles/PDFGenerator.css'
 //import '../styles/schedule.css'; 
 
 const PDFGenerator = ({ schedule }) => {

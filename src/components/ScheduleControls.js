@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ClassForm from './ClassForm';
+import '../styles/ScheduleControls.css'
 
 const ScheduleControls = ({ schedule, addClass, removeClass }) => {
   const [selectedDay, setSelectedDay] = useState('Lunes');

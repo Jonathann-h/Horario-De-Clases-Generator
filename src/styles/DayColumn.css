@@ -1,0 +1,40 @@
+.day-column {
+    background: var(--card-light);
+    border: 1px solid var(--border-light);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .day-column--can-drop {
+    border: 2px dashed var(--primary-light);
+    background-color: rgba(67, 97, 238, 0.07);
+  }
+  
+  .day-column h3 {
+    font-size: 1.25rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: dark;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+  
+  .day-column h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 2px;
+    background: var(--primary);
+  }
+  
+  .dark-mode .day-column h3 {
+    color: white;
+  }  

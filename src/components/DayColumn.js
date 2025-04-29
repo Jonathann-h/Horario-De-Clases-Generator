@@ -2,6 +2,7 @@ import React from 'react';
 import { useDrop } from 'react-dnd';
 import ClassItem from './ClassItem';
 import { motion } from 'framer-motion';
+import '../styles/DayColumn.css'
 
 <motion.div
   className="class-item"
