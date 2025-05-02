@@ -1,7 +1,7 @@
 {
   "name": "horario-clases",
   "version": "0.1.0",
-  "homepage": "https://github.com/Jonathann-h/Horario-De-Clases-Generator",
+  "homepage": "https://jonathann-h.github.io/Horario-De-Clases-Generator",
   "private": true,
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
