@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/Jonathann-h/Horario-De-Clases-Generator/static/css/main.326decf1.css",
+    "main.js": "/Jonathann-h/Horario-De-Clases-Generator/static/js/main.ec04b5e6.js",
+    "static/js/239.c74a86cb.chunk.js": "/Jonathann-h/Horario-De-Clases-Generator/static/js/239.c74a86cb.chunk.js",
+    "static/js/977.43b2b056.chunk.js": "/Jonathann-h/Horario-De-Clases-Generator/static/js/977.43b2b056.chunk.js",
+    "static/js/732.364fe322.chunk.js": "/Jonathann-h/Horario-De-Clases-Generator/static/js/732.364fe322.chunk.js",
+    "static/js/453.debe55d0.chunk.js": "/Jonathann-h/Horario-De-Clases-Generator/static/js/453.debe55d0.chunk.js",
+    "index.html": "/Jonathann-h/Horario-De-Clases-Generator/index.html",
+    "main.326decf1.css.map": "/Jonathann-h/Horario-De-Clases-Generator/static/css/main.326decf1.css.map",
+    "main.ec04b5e6.js.map": "/Jonathann-h/Horario-De-Clases-Generator/static/js/main.ec04b5e6.js.map",
+    "239.c74a86cb.chunk.js.map": "/Jonathann-h/Horario-De-Clases-Generator/static/js/239.c74a86cb.chunk.js.map",
+    "977.43b2b056.chunk.js.map": "/Jonathann-h/Horario-De-Clases-Generator/static/js/977.43b2b056.chunk.js.map",
+    "732.364fe322.chunk.js.map": "/Jonathann-h/Horario-De-Clases-Generator/static/js/732.364fe322.chunk.js.map",
+    "453.debe55d0.chunk.js.map": "/Jonathann-h/Horario-De-Clases-Generator/static/js/453.debe55d0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.326decf1.css",
+    "static/js/main.ec04b5e6.js"
+  ]
+}
