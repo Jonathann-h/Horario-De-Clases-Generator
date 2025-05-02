@@ -12,3 +12,12 @@ Aplicación web desarrollada con **React.js** que permite a los estudiantes orga
 -  **Detección de clases solapadas** (permite guardar de todas formas)
 -  **Persistencia automática con LocalStorage**
 -  **Diseño responsive**
+
+## Tecnologías usadas
+- **React.js
+- **React DnD
+- **Framer Motion
+- **jsPDF
+- **LocalStorage
+- **CSS Modules
+
